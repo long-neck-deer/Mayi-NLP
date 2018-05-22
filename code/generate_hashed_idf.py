@@ -1,47 +1,31 @@
-from datetime import datetime
-from csv import DictReader
+import pandas as pd
+from pandas import DataFrame
+from config import isCase
+
 from math import exp, log, sqrt
-from random import random,shuffle
-import pickle
-import sys
-from ngram import getUnigram
-import string
-import random
-seed =1024
-random.seed(seed)
 
-from config import path
 
+path = './feature/'
 
 
 def prepare_idf_dict(paths,smooth=1.0):
+    c = 0
     idf_dict = dict()
     for path in paths:
-        print path
-        c = 0
-        start = datetime.now()
-
-        for t, row in enumerate(DictReader(open(path), delimiter=',')): 
-            if c%100000==0:
-                print 'finished',c
-            q1 = str(row['question1_hash'])
-            q2 = str(row['question2_hash'])
-            # q1 = str(hash(q1))
-            # q2 = str(hash(q2))
-            for key in [q1,q2]:
-                df = idf_dict.get(key,0)
-                df+=1
-                idf_dict[key]=df
-
-            c+=1
-        end = datetime.now()
-
+        data = pd.read_csv(path)
+        for index,row in data.iterrows():
+            s1 = str(row['sen1_hash'])
+            s2 = str(row['sen2_hash'])
+        for key in [s1,s2]:
+            df = idf_dict.get(key,0)
+            df+=1
+            idf_dict[key] = df
+        c += 1
     n = c*2
     for key in idf_dict:
-        idf_dict[key] = get_idf(idf_dict[key] ,n,smooth=smooth)
-    idf_dict["default_idf"] = get_idf(0 ,n,smooth=smooth)
+        idf_dict[key] = get_idf(idf_dict[key] ,n,smooth=1)
+    idf_dict["default_idf"] = get_idf(0 ,n,smooth=1)
 
-    print 'times:',end-start
     return idf_dict
 
 def get_idf(df,n,smooth=1):
@@ -49,35 +33,23 @@ def get_idf(df,n,smooth=1):
     return idf
 
 def prepare_hash_idf(path,out,idf_dict):
-
-    print path
-    c = 0
-    start = datetime.now()
-    with open(out, 'w') as outfile:
-        outfile.write('question1_hash_count,question2_hash_count\n')
-        for t, row in enumerate(DictReader(open(path), delimiter=',')): 
-            if c%100000==0:
-                print 'finished',c
-            q1 = str(row['question1_hash'])
-            q2 = str(row['question2_hash'])
-            # q1 = hash(q1)
-            # q2 = hash(q2)
-            
-            q1_idf = idf_dict.get(q1,idf_dict['default_idf'])
-            q2_idf = idf_dict.get(q2,idf_dict['default_idf'])
-            
-            outfile.write('%s,%s\n' % (q1_idf, q2_idf))
-            
-            c+=1
-            end = datetime.now()
-
-
-    print 'times:',end-start
+    data_in = pd.read_csv(path)
+    data_out = DataFrame(columns=['sen1_hash_count','sen2_hash_count'])
+    for index,row in data_in.iterrows():
+        s1 = str(row['sen1_hash'])
+        s2 = str(row['sen2_hash'])
+        s1_idf = idf_dict.get(s1,idf_dict['default_idf'])
+        s2_idf = idf_dict.get(s2,idf_dict['default_idf'])
+        data_out.loc[index] = [s1_idf,s2_idf]
+    data_out.to_csv(out)
 
 
 
-idf_dict = prepare_idf_dict([path+'train_hashed.csv',path+'test_hashed.csv'])
+if isCase == False:
+    idf_dict = prepare_idf_dict([path+'train_hashed.csv',path+'test_hashed.csv'])
+    prepare_hash_idf(path+'train_hashed.csv',path+'train_hashed_idf.csv',idf_dict)
+    prepare_hash_idf(path+'test_hashed.csv',path+'test_hashed_idf.csv',idf_dict)
+else:
+    idf_dict = prepare_idf_dict([path+'case_hashed.csv',path+'case_hashed.csv'])
+    prepare_hash_idf(path+'case_hashed.csv',path+'case_hashed_idf.csv',idf_dict)
 
-prepare_hash_idf(path+'train_hashed.csv',path+'train_hashed_idf.csv',idf_dict)
-
-prepare_hash_idf(path+'test_hashed.csv',path+'test_hashed_idf.csv',idf_dict)

@@ -1,41 +1,26 @@
-from datetime import datetime
-from csv import DictReader
-from math import exp, log, sqrt
-from random import random,shuffle
-import pickle
-import sys
-from ngram import getUnigram
-import string
-import random
-seed =1024
-random.seed(seed)
+import pandas as pd
+from pandas import DataFrame
+from config import isCase
 
 
-path = "../input/"
+path = "./data/"
+path_to = "./feature/"
 
 
 def prepare_hash(path,out):
-    print path
-    c = 0
-    start = datetime.now()
-    with open(out, 'w') as outfile:
-        outfile.write('question1_hash,question2_hash\n')
-        for t, row in enumerate(DictReader(open(path), delimiter=',')): 
-            if c%100000==0:
-                print 'finished',c
-            q1 = str(row['question1']).lower()
-            q2 = str(row['question2']).lower()
-            q1 = hash(q1)
-            q2 = hash(q2)
-            outfile.write('%s,%s\n' % (q1, q2))
-            if c!=t:
-                print c,t
-            c+=1
-            
-        end = datetime.now()
-        
-    print(c)
-    print('times:',end-start)
+    data_input = pd.read_csv(path)
+    data_ouput = DataFrame(columns=['sen1_hash','sen2_hash'])
+    for index,row in data_input.iterrows():
+        s1 = str(row['sen1'])
+        s2 = str(row['sen2'])
+        hash1 = hash(s1)
+        hash2 = hash(s2)
+        data_ouput.loc[index] = [hash1,hash2]
+    data_ouput.to_csv(out)
+ 
+if isCase == False:
+    prepare_hash(path+'train_clean.csv',path_to+'train_hashed.csv')
+    prepare_hash(path+'test_clean.csv',path_to+'test_hashed.csv')
+else:
+    prepare_hash(path+'case.csv',path_to+'case_hashed.csv')
 
-prepare_hash(path+'train.csv',path+'train_hashed.csv')
-prepare_hash(path+'test.csv',path+'test_hashed.csv')

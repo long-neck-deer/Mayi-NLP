@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 seed = 1024
 np.random.seed(seed)
 
-from config import path
+path = './feature/'
 
 train = pd.read_csv(path+"train_hashed.csv")
 test = pd.read_csv(path+"test_hashed.csv")
