@@ -1,0 +1,6 @@
+,jaccard_unigram,dice_unigram,count_s1_in_s2_unigram,ratio_s1_in_s2_unigram,count_of_sen1_unigram,count_of_sen2_unigram,count_of_unique_sen1_unigram,count_of_unique_sen2_unigram,ratio_of_unique_sen1_unigram,ratio_of_unique_sen2_unigram,count_of_digit_sen1_unigram,count_of_digit_sen2_unigram,ratio_of_digit_sen1_unigram,ratio_of_digit_sen2_unigram
+0,0.5,0.6666666666666666,2.0,0.6666666666666666,3.0,3.0,3.0,3.0,1.0,1.0,0.0,0.0,0.0,0.0
+1,0.4,0.75,3.0,0.75,4.0,4.0,4.0,4.0,1.0,1.0,0.0,0.0,0.0,0.0
+2,0.8,0.3333333333333333,1.0,0.3333333333333333,3.0,3.0,3.0,3.0,1.0,1.0,0.0,0.0,0.0,0.0
+3,0.6666666666666667,0.5,2.0,0.5,4.0,4.0,4.0,4.0,1.0,1.0,0.0,0.0,0.0,0.0
+4,0.5,0.6666666666666666,3.0,0.6,5.0,4.0,5.0,4.0,1.0,1.0,0.0,0.0,0.0,0.0

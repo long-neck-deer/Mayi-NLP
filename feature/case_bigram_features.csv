@@ -1,0 +1,6 @@
+,jaccard_bigram,dice_bigram,count_s1_in_s2_bigram,ratio_s1_in_s2_bigram,count_of_sen1_bigram,count_of_sen2_bigram,count_of_unique_sen1_bigram,count_of_unique_sen2_bigram,ratio_of_unique_sen1_bigram,ratio_of_unique_sen2_bigram,count_of_digit_sen1_bigram,count_of_digit_sen2_bigram,ratio_of_digit_sen1_bigram,ratio_of_digit_sen2_bigram
+0,1.0,0.0,0.0,0.0,2.0,2.0,2.0,2.0,1.0,1.0,0.0,0.0,0.0,0.0
+1,0.5,0.6666666666666666,2.0,0.6666666666666666,3.0,3.0,3.0,3.0,1.0,1.0,0.0,0.0,0.0,0.0
+2,1.0,0.0,0.0,0.0,2.0,2.0,2.0,2.0,1.0,1.0,0.0,0.0,0.0,0.0
+3,1.0,0.0,0.0,0.0,3.0,3.0,3.0,3.0,1.0,1.0,0.0,0.0,0.0,0.0
+4,1.0,0.0,0.0,0.0,4.0,3.0,4.0,3.0,1.0,1.0,0.0,0.0,0.0,0.0
