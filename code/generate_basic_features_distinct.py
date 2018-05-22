@@ -18,7 +18,7 @@ def prepare_ngram_interaction(path,out,ngram='unigram'):
         count_of_sen1 = get_count_of_sen(s1_ngram)
         count_of_sen2 = get_count_of_sen(s2_ngram)
         data_out.loc[index] = [count_of_sen1,count_of_sen2]
-    data_out.to_csv(out)
+    data_out.to_csv(out,index=False)
 
 if isCase == False:
     prepare_ngram_interaction(path+'train_distinct_unigram.csv',path+'train_distinct_unigram_features.csv',ngram='unigram')
