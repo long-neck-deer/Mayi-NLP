@@ -5,12 +5,14 @@ from random import random,shuffle
 import pickle
 import sys
 import string
+from config import isCase
 
+path = './feature/'
 
-
-from config import path
-
-
+'''
+sen1_word+sen2_hash
+sen2_word+sen1_hash
+'''
 def cooccurrence_terms(lst1, lst2, join_str="__"):
     lst1 = lst1.split(" ")
     lst2 = lst2.split(" ")
@@ -28,22 +30,24 @@ def prepare_cooccurrence(path1,path2,out):
     c = 0
     start = datetime.now()
     with open(out, 'w') as outfile:
-        outfile.write('question1_unigram_question2_hash,question1_hash_question2_unigram\n')
+        outfile.write('sen1_unigram_sen2_hash,sen1_hash_sen2_unigram\n')
         for row1, row2 in zip(DictReader(open(path1), delimiter=','),DictReader(open(path2), delimiter=',')): 
             if c%100000==0:
                 print 'finished',c
-            q1_unigram = str(row1['question1_unigram'])
-            q2_unigram = str(row1['question2_unigram'])
+            s1_unigram = str(row1['sen1_unigram'])
+            s2_unigram = str(row1['sen2_unigram'])
 
-            q1_hash = str(row2['question1_hash'])
-            q2_hash = str(row2['question2_hash'])
+            s1_hash = str(row2['sen1_hash'])
+            s2_hash = str(row2['sen2_hash'])
 
-            coo_terms1 = cooccurrence_terms(q1_unigram,q2_hash)
-            coo_terms2 = cooccurrence_terms(q2_unigram,q1_hash)
+            coo_terms1 = cooccurrence_terms(s1_unigram,s2_hash)
+            coo_terms2 = cooccurrence_terms(s2_unigram,s1_hash)
             outfile.write('%s,%s\n' % (coo_terms1,coo_terms2))
             c+=1
         end = datetime.now()
     print 'times:',end-start
-
-prepare_cooccurrence(path+'train_unigram.csv',path+'train_hashed.csv',path+'train_cooccurrence_qid.csv')
-prepare_cooccurrence(path+'test_unigram.csv',path+'test_hashed.csv',path+'test_cooccurrence_qid.csv')
+if isCase == False:
+    prepare_cooccurrence(path+'train_unigram.csv',path+'train_hashed.csv',path+'train_cooccurrence_qid.csv')
+    prepare_cooccurrence(path+'test_unigram.csv',path+'test_hashed.csv',path+'test_cooccurrence_qid.csv')
+else:
+    prepare_cooccurrence(path+'case_unigram.csv',path+'case_hashed.csv',path+'case_cooccurrence_qid.csv')
