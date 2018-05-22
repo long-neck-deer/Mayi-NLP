@@ -84,7 +84,7 @@ def prepare_position_index(path,out):
                                     mean_pos_s2_in_s1,
                                     median_pos_s2_in_s1,
                                     std_pos_s2_in_s1]
-    data_ouput.to_csv(out)
+    data_ouput.to_csv(out,index=False)
 
 
 if isCase == False:

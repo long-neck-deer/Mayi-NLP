@@ -26,7 +26,7 @@ def prepare_ngram_interaction(path,out):
         count_of_stop_sen2 = get_count_s1_in_s2(s2_ngram,stops)
         ratio_of_stop_sen2 = get_ratio_s1_in_s2(s2_ngram,stops)
         data_ouput.loc[index] = [count_of_stop_sen1,ratio_of_stop_sen1,count_of_stop_sen2,ratio_of_stop_sen2]
-    data_ouput.to_csv(out)
+    data_ouput.to_csv(out,index=False)
 
 if isCase == False:
     prepare_ngram_interaction(path+'train_clean.csv','./feature/train_clean_stop_features.csv')

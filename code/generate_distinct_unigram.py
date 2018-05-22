@@ -21,7 +21,7 @@ def prepare_distinct(path,out):
         s2 = str(row['sen2_unigram'])
         coo_terms = distinct_terms(s1,s2)
         data_ouput.loc[index] = [coo_terms[0],coo_terms[1]]
-    data_ouput.to_csv(out)
+    data_ouput.to_csv(out,index=False)
 
 
 if isCase == False:

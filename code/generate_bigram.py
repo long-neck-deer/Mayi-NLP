@@ -15,7 +15,7 @@ def prepare_unigram(path,out):
         s1 = ' '.join(getBigram(s1))
         s2 = ' '.join(getBigram(s2))
         data_ouput.loc[index] = [s1,s2]
-    data_ouput.to_csv(out)
+    data_ouput.to_csv(out,index=False)
 
 if isCase == False:
     prepare_unigram(path+'train_clean.csv',path_feature+'train_bigram.csv')

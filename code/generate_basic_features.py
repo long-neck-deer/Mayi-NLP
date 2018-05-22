@@ -81,7 +81,7 @@ def prepare_ngram_interaction(path,out,ngram='unigram'):
                                 count_of_digit_sen2,
                                 ratio_of_digit_sen1,
                                 ratio_of_digit_sen2]
-    data_ouput.to_csv(out)
+    data_ouput.to_csv(out,index=False)
         
 
 if isCase ==False:

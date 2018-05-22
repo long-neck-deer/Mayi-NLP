@@ -77,7 +77,7 @@ def create_idf_stats_features(path,idf_dict,out):
             median_s2_idfs,
             std_s2_idfs
         ]
-    data_out.to_csv(out)  
+    data_out.to_csv(out,index=False)  
 if isCase == False:
     create_idf_stats_features(path+'train.csv',idf_dict,path_out+'train_idf_stats_features.csv')
     create_idf_stats_features(path+'test.csv',idf_dict,path_out+'test_idf_stats_features.csv')

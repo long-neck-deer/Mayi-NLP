@@ -22,7 +22,7 @@ def prepare_hash_neighbour(paths,out):
     for k in neighbour_dict.keys():
         data_out.loc[c] = [str(k),' '.join(neighbour_dict[k])]
         c += 1
-    data_out.to_csv(out)
+    data_out.to_csv(out,index=False)
 
 if isCase == False:
     prepare_hash_neighbour([path+'train_hashed.csv',path+'test_hashed.csv'],out=path+'neighbor.csv')

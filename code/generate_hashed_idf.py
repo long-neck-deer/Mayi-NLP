@@ -41,7 +41,7 @@ def prepare_hash_idf(path,out,idf_dict):
         s1_idf = idf_dict.get(s1,idf_dict['default_idf'])
         s2_idf = idf_dict.get(s2,idf_dict['default_idf'])
         data_out.loc[index] = [s1_idf,s2_idf]
-    data_out.to_csv(out)
+    data_out.to_csv(out,index=False)
 
 
 

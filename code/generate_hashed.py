@@ -16,7 +16,7 @@ def prepare_hash(path,out):
         hash1 = hash(s1)
         hash2 = hash(s2)
         data_ouput.loc[index] = [hash1,hash2]
-    data_ouput.to_csv(out)
+    data_ouput.to_csv(out,index=False)
  
 if isCase == False:
     prepare_hash(path+'train_clean.csv',path_to+'train_hashed.csv')

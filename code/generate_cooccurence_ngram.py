@@ -25,7 +25,7 @@ def prepare_cooccurrence(path,out):
         s2 = str(row['sen2_unigram'])
         coo_terms = cooccurrence_terms(s1,s2)
         data_ouput.loc[index] = [coo_terms]
-    data_ouput.to_csv(out)
+    data_ouput.to_csv(out,index=False)
 
 
 if isCase == False:
